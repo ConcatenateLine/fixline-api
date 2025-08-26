@@ -1,0 +1,12 @@
+model TenantMembership {
+  id        String   @id @default(uuid())
+  tenantId String
+  userId   Int
+  role     Role     @default(GUEST)
+  joinedAt DateTime  @default(now())
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@unique([tenantId, userId])
+}

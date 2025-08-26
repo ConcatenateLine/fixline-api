@@ -1,7 +1,7 @@
 import { Mutation, Resolver } from "@nestjs/graphql";
 import { CreateService } from "./create.service";
 import { Args } from "@nestjs/graphql";
-import { UserModel } from "../models/user.models";
+import { UserModel } from "../models/user.model";
 import { CreateUserInput } from "./create.input";
 
 @Resolver(() => UserModel)
