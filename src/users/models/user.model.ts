@@ -2,15 +2,27 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 
 @ObjectType()
 export class UserModel {
-    @Field(() => Int)
-    id: number;
+  @Field()
+  id: number;
 
-    @Field({ nullable: true })
-    name?: string;
+  @Field({ nullable: true })
+  name: string;
 
-    @Field()
-    email: string;
+  @Field()
+  email: string;
 
-    @Field()
-    createdAt: Date;
+  @Field()
+  password: string;
+
+  @Field()
+  isActive: boolean;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+
+  @Field(() => [Int], { nullable: true })
+  memberships?: any[]
 }

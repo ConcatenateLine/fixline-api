@@ -29,6 +29,7 @@ async function main() {
         create: {
             email: 'admin@acme.com',
             name: 'Alice Admin',
+            password: 'password',
         },
     });
 
@@ -38,6 +39,7 @@ async function main() {
         create: {
             email: 'agent@globex.com',
             name: 'Gary Agent',
+            password: 'password',
         },
     });
 
