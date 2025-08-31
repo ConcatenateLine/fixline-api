@@ -1,19 +1,26 @@
-import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
+import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { SignInResponse } from './signIn.response';
-import { UseGuards } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { SignInInput } from './signIn.input';
+import { SignInService } from './signIn.service';
+import { GqlLocalAuthGuard } from '../strategies/gqlLocalAuthGuard.strategy';
+import { UserAuthModel } from '../models/userAuth.model';
+import { CurrentUser } from '../decorators/currentUser.decorator';
 
 @Resolver()
 export class SignInResolver {
-  constructor() { }
+  constructor(private signInService: SignInService) {}
 
   @Mutation(() => SignInResponse)
-  @UseGuards(AuthGuard('local'))
-  async signIn(@Args('input') input: SignInInput, @Context() { user }: { user: any }): Promise<SignInResponse> {
-    if (!user) {
-      throw new Error('Invalid credentials');
+  @UseGuards(GqlLocalAuthGuard)
+  async signIn(
+    @Args('input') _: SignInInput,
+    @CurrentUser() user: UserAuthModel,
+  ): Promise<SignInResponse> {
+    const signInResponse = await this.signInService.signIn(user);
+    if (!signInResponse) {
+      throw new UnauthorizedException('Invalid credentials');
     }
-    return user;
+    return signInResponse;
   }
 }

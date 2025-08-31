@@ -23,7 +23,6 @@ export class CreateResolver {
       email: user.email,
       isActive: user.isActive,
       createdAt: user.createdAt,
-      memberships: []
     };
   }
 }

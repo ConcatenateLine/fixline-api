@@ -6,5 +6,6 @@ import { ValidateService } from './validate.service';
 @Module({
   imports: [FindModule],
   providers: [PrismaService, ValidateService],
+  exports: [ValidateService],
 })
 export class ValidateModule { }

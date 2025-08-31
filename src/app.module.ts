@@ -7,7 +7,7 @@ import { TenantsModule } from './tenants/tenants.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [GrapqlModule, UsersModule, TenantsModule, AuthModule],
+  imports: [GrapqlModule, UsersModule, AuthModule, TenantsModule],
   controllers: [AppController],
   providers: [AppService],
 })

@@ -2,8 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class SignInService {
-  constructor(
-  ) { }
+  constructor() {}
 
   async signIn(user: any) {
     const payload = {

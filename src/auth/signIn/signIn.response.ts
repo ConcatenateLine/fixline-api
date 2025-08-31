@@ -11,6 +11,6 @@ export class SignInResponse {
   @Field()
   email: string;
 
-  @Field()
-  memberships: string[];
+  @Field(() => [String], { nullable: true })
+  memberships?: string[];
 }

@@ -4,10 +4,10 @@ import { SignInService } from './signIn.service';
 import { SignInResolver } from './signIn.resolver';
 import { ValidateModule } from '../validate/validate.module';
 import { LocalStrategy } from '../strategies/local.strategy';
-import { PassportModule } from '@nestjs/passport';
+import { GqlLocalAuthGuard } from '../strategies/gqlLocalAuthGuard.strategy';
 
 @Module({
-  imports: [ValidateModule, PassportModule],
-  providers: [PrismaService, SignInService, SignInResolver, LocalStrategy],
+  imports: [ValidateModule],
+  providers: [PrismaService, SignInService, SignInResolver, LocalStrategy, GqlLocalAuthGuard],
 })
 export class SignInModule { }
