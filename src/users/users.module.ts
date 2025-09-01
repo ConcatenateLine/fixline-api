@@ -4,10 +4,11 @@ import { UsersController } from './users.controller';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateModule } from './create/create.module';
 import { FindModule } from './find/find.module';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
-  imports: [CreateModule, FindModule],
+  imports: [CreateModule, FindModule, ProfileModule],
   providers: [UsersService, PrismaService],
-  controllers: [UsersController]
+  controllers: [UsersController],
 })
-export class UsersModule { }
+export class UsersModule {}

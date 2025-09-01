@@ -1,8 +1,10 @@
 import { PrismaClient, Role } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
 async function main() {
+    const passwordHash = await bcrypt.hash('password', 12);
     // Seed tenants
     const tenantAcme = await prisma.tenant.upsert({
         where: { slug: 'acme-corp' },
@@ -29,7 +31,7 @@ async function main() {
         create: {
             email: 'admin@acme.com',
             name: 'Alice Admin',
-            password: 'password',
+            password: passwordHash,
         },
     });
 
@@ -39,7 +41,7 @@ async function main() {
         create: {
             email: 'agent@globex.com',
             name: 'Gary Agent',
-            password: 'password',
+            password: passwordHash,
         },
     });
 

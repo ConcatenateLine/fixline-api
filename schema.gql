@@ -21,13 +21,38 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input FindInput {
+  email: String!
+}
+
+type FindResponse {
+  createdAt: DateTime!
+  email: String!
+  id: Int!
+  isActive: Boolean!
+  memberships: [String!]
+  name: String!
+}
+
 type Mutation {
   createUser(data: CreateUserInput!): CreateResponse!
+  register(input: RegisterInput!): RegisterResponse!
   signIn(input: SignInInput!): SignInResponse!
 }
 
 type Query {
+  findProfile(input: FindInput!): FindResponse!
   hello: String!
+}
+
+input RegisterInput {
+  email: String!
+  name: String!
+  password: String!
+}
+
+type RegisterResponse {
+  message: String!
 }
 
 input SignInInput {
@@ -36,8 +61,13 @@ input SignInInput {
 }
 
 type SignInResponse {
+  access_token: String!
+  user: UserAuthModel!
+}
+
+type UserAuthModel {
   email: String!
   id: Float!
   memberships: [String!]
-  name: String!
+  name: String
 }

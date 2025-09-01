@@ -1,16 +1,11 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { UserAuthModel } from '../models/userAuth.model';
 
 @ObjectType()
 export class SignInResponse {
   @Field()
-  id: number;
+  access_token: string;
 
   @Field()
-  name: string;
-
-  @Field()
-  email: string;
-
-  @Field(() => [String], { nullable: true })
-  memberships?: string[];
+  user: UserAuthModel;
 }

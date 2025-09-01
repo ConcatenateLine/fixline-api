@@ -4,10 +4,16 @@ import { SignInService } from './signIn.service';
 import { SignInResolver } from './signIn.resolver';
 import { ValidateModule } from '../validate/validate.module';
 import { LocalStrategy } from '../strategies/local.strategy';
-import { GqlLocalAuthGuard } from '../strategies/gqlLocalAuthGuard.strategy';
+import { GqlLocalAuthGuard } from '../guards/gqlLocalAuth.guard';
 
 @Module({
   imports: [ValidateModule],
-  providers: [PrismaService, SignInService, SignInResolver, LocalStrategy, GqlLocalAuthGuard],
+  providers: [
+    PrismaService,
+    SignInService,
+    SignInResolver,
+    LocalStrategy,
+    GqlLocalAuthGuard,
+  ],
 })
-export class SignInModule { }
+export class SignInModule {}
