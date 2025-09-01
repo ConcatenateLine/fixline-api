@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { CreateService } from '../create.service';
 import { CreateResolver } from '../create.resolver';
 import { CreateUserInput } from '../create.input';
@@ -14,6 +14,7 @@ describe('Create user resolver', () => {
     let resolver: CreateResolver;
     const email = 'test@example.com';
     const name = 'test';
+    const password = 'test';
 
     beforeEach(async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -28,12 +29,12 @@ describe('Create user resolver', () => {
     });
 
     it('should create user', async () => {
-        const result = await resolver.createUser({ email, name });
+        const result = await resolver.createUser({ email, name, password });
         expect(result).toBeDefined();
     });
 
     it('should create user', async () => {
-        await resolver.createUser({ email, name });
+        await resolver.createUser({ email, name, password });
         expect(mockPrisma.user.create).toHaveBeenCalledWith(expect.objectContaining({
             email,
             name,

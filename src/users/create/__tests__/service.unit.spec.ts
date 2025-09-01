@@ -1,47 +1,65 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateService } from '../create.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 const mockPrisma = {
-    user: {
-        create: jest.fn(),
-    },
+  user: {
+    create: jest.fn(),
+  },
 };
 
-describe('Create user service', () => {
-    let service: CreateService;
-    const email = 'test@example.com';
-    const name = 'test';
+describe('CreateService', () => {
+  let service: CreateService;
+  const email = 'test@example.com';
+  const name = 'test';
+  const password = 'test';
 
-    beforeEach(async () => {
-        const module: TestingModule = await Test.createTestingModule({
-            providers: [CreateService, { provide: PrismaService, useValue: mockPrisma }],
-        }).compile();
+  beforeEach(async () => {
+    jest.clearAllMocks();
 
-        service = module.get<CreateService>(CreateService);
-    });
+    mockPrisma.user.create.mockResolvedValue({ id: 1, email, name });
 
-    it('should be defined', () => {
-        expect(service).toBeDefined();
-    });
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        CreateService,
+        { provide: PrismaService, useValue: mockPrisma },
+      ],
+    }).compile();
 
-    it('should create user', async () => {
-        const result = await service.createUser({ email, name });
-        expect(result).toBeDefined();
-    });
+    service = module.get<CreateService>(CreateService);
+  });
 
-    it('should create user', async () => {
-        await service.createUser({ email, name });
-        expect(mockPrisma.user.create).toHaveBeenCalledWith(expect.objectContaining({
-            email,
-            name,
-        }));
-    });
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
 
-    // it('should hash password before saving', async () => {
-    //     const result = await service.createUser({ email, password });
-    //     expect(mockPrisma.user.create).toHaveBeenCalledWith(expect.objectContaining({
-    //       password: expect.stringMatching(/^\$2[aby]\$.{56}$/)
-    //     }));
-    //   });
+  it('should create user and return result', async () => {
+    const result = await service.createUser({ email, name, password });
+    expect(result).toEqual({ id: 1, email, name });
+  });
+
+  it('should call Prisma with correct user data', async () => {
+    await service.createUser({ email, name, password });
+    expect(mockPrisma.user.create).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { email, name } }),
+    );
+  });
+
+  it('should hash password before saving', async () => {
+    await service.createUser({ email, name, password });
+    expect(mockPrisma.user.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: {
+          password: expect.stringMatching(/^\$2[aby]\$.{56}$/),
+        },
+      }),
+    );
+  });
+
+  it('should throw if Prisma create fails', async () => {
+    mockPrisma.user.create.mockRejectedValue(new Error('DB error'));
+    await expect(service.createUser({ email, name, password })).rejects.toThrow(
+      'DB error',
+    );
+  });
 });
