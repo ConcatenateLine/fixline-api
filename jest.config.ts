@@ -12,7 +12,11 @@ export default {
   },
   collectCoverageFrom: ['**/*.(t|j)s'],
   coverageDirectory: '../coverage',
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, {
-    prefix: '<rootDir>/',
-  }),
+  moduleNameMapper: pathsToModuleNameMapper(
+    { ...compilerOptions.paths, 'test/*': ['test/*'] },
+    {
+      prefix: '<rootDir>/',
+    },
+  ),
+  setupFilesAfterEnv: ['<rootDir>/test/singleton.ts'],
 };

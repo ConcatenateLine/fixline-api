@@ -13,7 +13,8 @@ type CreateResponse {
 
 input CreateUserInput {
   email: String!
-  name: String
+  name: String!
+  password: String!
 }
 
 """
@@ -35,7 +36,7 @@ type FindResponse {
 }
 
 type Mutation {
-  createUser(data: CreateUserInput!): CreateResponse!
+  createUser(input: CreateUserInput!): CreateResponse!
   register(input: RegisterInput!): RegisterResponse!
   signIn(input: SignInInput!): SignInResponse!
 }
