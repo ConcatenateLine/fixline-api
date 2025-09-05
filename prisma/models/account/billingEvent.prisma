@@ -1,0 +1,18 @@
+model BillingEvent {
+  id        String   @id @default(uuid())
+  provider  String
+  eventId   String   @unique
+  type      String
+  receivedAt DateTime @default(now())
+  raw       Json
+
+  accountId String
+  account Account @relation(fields: [accountId], references: [id])
+
+  subscriptionId String
+  subscription Subscription @relation(fields: [subscriptionId], references: [id])
+
+  @@index([type, receivedAt])
+  @@unique([provider, eventId])
+  @@index([subscriptionId])
+}

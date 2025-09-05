@@ -1,0 +1,15 @@
+model PlanPrice {
+  id        String           @id @default(uuid())
+  provider  String           // "stripe", "paddle"
+  productId String?          // Stripe product id (optional)
+  priceId   String           @unique // Stripe price id (unique per provider)
+  interval  BillingInterval
+  amountCents Int
+  currency  String           // "USD", etc.
+  active    Boolean          @default(true)
+
+  planId    String
+  plan      Plan             @relation(fields: [planId], references: [id])
+
+  @@index([planId])
+}

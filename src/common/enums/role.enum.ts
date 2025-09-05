@@ -1,9 +1,10 @@
 enum Role {
-    ADMIN = 'ADMIN',
-    MANAGER = 'MANAGER',
-    AGENT = 'AGENT',
-    VIEWER = 'VIEWER',
-    GUEST = 'GUEST'
+  OWNER = 'OWNER',
+  ADMIN = 'ADMIN',
+  MANAGER = 'MANAGER',
+  AGENT = 'AGENT',
+  REPORTER = 'REPORTER',
+  GUEST = 'GUEST',
 }
 
 export default Role;

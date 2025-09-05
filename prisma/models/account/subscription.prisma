@@ -1,0 +1,20 @@
+model Subscription {
+  id                 String   @id @default(uuid())
+  provider           String   // stripe, paddle, etc.
+  customerId         String   // provider customer id
+  subscriptionId     String   @unique
+  priceId            String
+  status             String   // e.g., active, past_due, canceled
+  periodStart DateTime?
+  periodEnd   DateTime?
+
+  accountId          String
+  account Account @relation(fields: [accountId], references: [id])
+
+  planId String
+  plan Plan @relation(fields: [planId], references: [id])
+
+  billingEvents BillingEvent[]
+
+  @@index([accountId, planId])
+}

@@ -1,7 +1,8 @@
 enum Role {
+    OWNER
     ADMIN
     MANAGER
     AGENT
-    VIEWER
+    REPORTER
     GUEST
 }

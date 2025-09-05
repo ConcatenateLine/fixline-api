@@ -1,73 +1,46 @@
-import { PrismaClient, Role } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
+/**
+ * ! Executing this script will delete all data in your database and seed it with demo data.
+ * Use any TypeScript runner to run this script, for example: `pnpm prisma:seed`
+ * Learn more about the Seed Client: https://docs.snaplet.dev/seed/getting-started
+ */
+import { PrismaClient } from '@prisma/client';
+import { plansAndPricesSeed } from './seeders/plansAndPrices.seed';
+import { createSeedClient } from '@snaplet/seed';
+import { authSeed } from './seeders/auth.seed';
+import { tenantsAndMembershipsSeed } from './seeders/tenantsAndMemberships.seed';
 
 const prisma = new PrismaClient();
 
 async function main() {
-    const passwordHash = await bcrypt.hash('password', 12);
-    // Seed tenants
-    const tenantAcme = await prisma.tenant.upsert({
-        where: { slug: 'acme-corp' },
-        update: {},
-        create: {
-            name: 'Acme Corp',
-            slug: 'acme-corp',
-        },
+  console.log('🌱 Starting database seeding...');
+
+  try {
+    const seed = await createSeedClient();
+
+    console.log('🗑️ Resetting database...');
+    await seed.$resetDatabase();
+
+    await prisma.$transaction(async (tx: PrismaClient) => {
+      await plansAndPricesSeed(tx);
     });
 
-    const tenantGlobex = await prisma.tenant.upsert({
-        where: { slug: 'globex-inc' },
-        update: {},
-        create: {
-            name: 'Globex Inc',
-            slug: 'globex-inc',
-        },
-    });
+    if (process.env.SEED_DEMO === 'TRUE') {
+      await authSeed(prisma, seed);
+      await tenantsAndMembershipsSeed(prisma, seed);
+    }
 
-    // Seed users
-    await prisma.user.upsert({
-        where: { email: 'admin@acme.com' },
-        update: {},
-        create: {
-            email: 'admin@acme.com',
-            name: 'Alice Admin',
-            password: passwordHash,
-        },
-    });
-
-    await prisma.user.upsert({
-        where: { email: 'agent@globex.com' },
-        update: {},
-        create: {
-            email: 'agent@globex.com',
-            name: 'Gary Agent',
-            password: passwordHash,
-        },
-    });
-
-    // Seed tenant memberships
-    await prisma.tenantMembership.create({
-        data: {
-            tenantId: tenantAcme.id,
-            userId: 1,
-            role: Role.ADMIN,
-        },
-    });
-
-    await prisma.tenantMembership.create({
-        data: {
-            tenantId: tenantGlobex.id,
-            userId: 2,
-            role: Role.AGENT,
-        },
-    });
-
-    console.log('✅ Seed complete');
+    console.log('\n✅ Database seeded successfully!');
+  } catch (error) {
+    console.error('❌ Seed error:', error);
+    throw error;
+  }
 }
 
 main()
-    .catch((e) => {
-        console.error('❌ Seed error:', e);
-        process.exit(1);
-    })
-    .finally(() => prisma.$disconnect());
+  .catch((e) => {
+    console.error('❌ Fatal error during seeding:', e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

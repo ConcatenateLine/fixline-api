@@ -1,13 +1,29 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, ObjectType } from '@nestjs/graphql';
+import { TenantMembershipModel } from './tenantMembership.model';
 
 @ObjectType()
 export class TenantModel {
-    @Field(() => Int)
-    id: number;
+  @Field()
+  id: string;
 
-    @Field()
-    domain: string;  
+  @Field()
+  name: string;
 
-    @Field()
-    createdAt: Date;
+  @Field()
+  slug: string;
+
+  @Field()
+  createdAt: Date;
+
+  @Field()
+  updatedAt: Date;
+
+  @Field()
+  isActive: boolean;
+
+  @Field(() => String, { nullable: true })
+  contactEmail?: string;
+
+  @Field(() => [TenantMembershipModel], { nullable: true })
+  memberships?: TenantMembershipModel[];
 }
