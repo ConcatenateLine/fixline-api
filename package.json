@@ -20,7 +20,10 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
-    "prisma:seed": "prisma db seed"
+    "prisma:seed": "prisma db seed",
+    "prisma:seed:base": "SEED_MODE=base SEED_RESET=FALSE prisma db seed",
+    "prisma:seed:demo": "SEED_MODE=all SEED_RESET=TRUE prisma db seed",
+    "prisma:seed:only": "SEED_ONLY=$ONLY prisma db seed"
   },
   "dependencies": {
     "@apollo/server": "^4.12.2",

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, SubscriptionStatus } from '@prisma/client';
 import { copycat } from '@snaplet/copycat';
 import { SeedClient } from '@snaplet/seed';
 import * as bcrypt from 'bcrypt';
@@ -91,11 +91,11 @@ async function createSubscriptions(prisma: PrismaClient, accounts: any[]) {
 
     // Determine subscription status based on dates
     const now = new Date();
-    let status: 'active' | 'past_due' | 'canceled' = 'active';
+    let status: SubscriptionStatus = SubscriptionStatus.ACTIVE;
     if (endDate < now) {
       status = copycat.oneOf(account.userEmail + '_status', [
-        'past_due',
-        'canceled',
+        SubscriptionStatus.PAST_DUE,
+        SubscriptionStatus.CANCELED,
       ] as const);
     }
 
@@ -148,8 +148,6 @@ async function createSubscriptions(prisma: PrismaClient, accounts: any[]) {
 }
 
 export async function authSeed(prisma: PrismaClient, seed: SeedClient) {
-  console.log('\n🌱 Starting database auth seeding...');
-
   try {
     // 1. Create users
     await createUsers(seed, SEED_CONFIG.USER_COUNT);
@@ -175,7 +173,6 @@ export async function authSeed(prisma: PrismaClient, seed: SeedClient) {
     console.log(`   🏢 Accounts: ${stats.accounts}`);
     console.log(`   💳 Subscriptions: ${stats.subscriptions}`);
 
-    console.log('\n✅ Database seeded auth successfully!');
   } catch (error) {
     console.error('❌ Seed error:', error);
     throw error;

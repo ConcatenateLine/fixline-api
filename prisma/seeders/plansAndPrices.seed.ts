@@ -1,82 +1,107 @@
-import { PrismaClient, BillingInterval } from '@prisma/client';
+import { PrismaClient, BillingInterval, Currency } from '@prisma/client';
+import { PRODUCTS } from './seed.constants';
 
 async function createPlansAndPrices(tx: PrismaClient) {
+  // Upsert plans by unique key
   await tx.plan.upsert({
-    where: {
-      id: 'basic',
-    },
+    where: { key: 'basic' },
     update: {},
     create: {
-      id: 'basic',
       key: 'basic',
       name: 'Basic',
       maxTenants: 1,
-      prices: {
-        create: {
-          id: 'basic_monthly',
-          provider: 'stripe',
-          productId: 'product_1N5X5ZK0K0K0K0K0K0K0K0K0',
-          priceId: 'price_1N5X5ZK0K0K0K0K0K0K0K0K0',
-          interval: BillingInterval.MONTH,
-          amountCents: 0,
-          currency: 'USD',
-        },
-      },
     },
   });
 
   await tx.plan.upsert({
-    where: {
-      id: 'pro',
-    },
+    where: { key: 'pro' },
     update: {},
     create: {
-      id: 'pro',
       key: 'pro',
       name: 'Pro',
       maxTenants: 5,
-      prices: {
-        create: {
-          id: 'pro_monthly',
-          provider: 'stripe',
-          productId: 'product_2N5X5ZK0K0K0K0K0K0K0K0K0',
-          priceId: 'price_2N5X5ZK0K0K0K0K0K0K0K0K0',
-          interval: BillingInterval.MONTH,
-          amountCents: 0,
-          currency: 'USD',
-        },
-      },
     },
   });
 
   await tx.plan.upsert({
-    where: {
-      id: 'enterprise',
-    },
+    where: { key: 'enterprise' },
     update: {},
     create: {
-      id: 'enterprise',
       key: 'enterprise',
       name: 'Enterprise',
       maxTenants: 10,
-      prices: {
-        create: {
-          id: 'enterprise_monthly',
-          provider: 'stripe',
-          productId: 'product_3N5X5ZK0K0K0K0K0K0K0K0K0',
-          priceId: 'price_3N5X5ZK0K0K0K0K0K0K0K0K0',
-          interval: BillingInterval.MONTH,
-          amountCents: 0,
-          currency: 'USD',
-        },
-      },
+    },
+  });
+
+  // Upsert prices by unique priceId and connect to plans by key
+  await tx.planPrice.upsert({
+    where: { priceId: PRODUCTS.basic.stripe.priceId },
+    update: {
+      active: true,
+      amountCents: 0,
+      currency: Currency.USD,
+      interval: BillingInterval.MONTH,
+      provider: 'stripe',
+      productId: PRODUCTS.basic.stripe.productId,
+      plan: { connect: { key: 'basic' } },
+    },
+    create: {
+      priceId: PRODUCTS.basic.stripe.priceId,
+      provider: 'stripe',
+      productId: PRODUCTS.basic.stripe.productId,
+      interval: BillingInterval.MONTH,
+      amountCents: 0,
+      currency: Currency.USD,
+      plan: { connect: { key: 'basic' } },
+    },
+  });
+
+  await tx.planPrice.upsert({
+    where: { priceId: PRODUCTS.pro.stripe.priceId },
+    update: {
+      active: true,
+      amountCents: 0,
+      currency: Currency.USD,
+      interval: BillingInterval.MONTH,
+      provider: 'stripe',
+      productId: PRODUCTS.pro.stripe.productId,
+      plan: { connect: { key: 'pro' } },
+    },
+    create: {
+      priceId: PRODUCTS.pro.stripe.priceId,
+      provider: 'stripe',
+      productId: PRODUCTS.pro.stripe.productId,
+      interval: BillingInterval.MONTH,
+      amountCents: 0,
+      currency: Currency.USD,
+      plan: { connect: { key: 'pro' } },
+    },
+  });
+
+  await tx.planPrice.upsert({
+    where: { priceId: PRODUCTS.enterprise.stripe.priceId },
+    update: {
+      active: true,
+      amountCents: 0,
+      currency: Currency.USD,
+      interval: BillingInterval.MONTH,
+      provider: 'stripe',
+      productId: PRODUCTS.enterprise.stripe.productId,
+      plan: { connect: { key: 'enterprise' } },
+    },
+    create: {
+      priceId: PRODUCTS.enterprise.stripe.priceId,
+      provider: 'stripe',
+      productId: PRODUCTS.enterprise.stripe.productId,
+      interval: BillingInterval.MONTH,
+      amountCents: 0,
+      currency: Currency.USD,
+      plan: { connect: { key: 'enterprise' } },
     },
   });
 }
 
 export async function plansAndPricesSeed(prisma: PrismaClient) {
-  console.log('\n🌱 Starting database plans and prices seeding...');
-
   try {
     await createPlansAndPrices(prisma);
 
@@ -88,8 +113,6 @@ export async function plansAndPricesSeed(prisma: PrismaClient) {
     console.log('📊 Seeding Plans and Prices Summary:');
     console.log(`   🏬 Plans: ${stats.plans}`);
     console.log(`   👨‍💼 Prices: ${stats.prices}`);
-
-    console.log('\n✅ Database seeded plans and prices successfully!');
   } catch (error) {
     console.error('❌ Seed error:', error);
     throw error;

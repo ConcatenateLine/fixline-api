@@ -150,8 +150,6 @@ export async function tenantsAndMembershipsSeed(
   prisma: PrismaClient,
   seed: SeedClient,
 ) {
-  console.log('\n🌱 Starting database tenants and memberships seeding...');
-
   try {
     const users = await prisma.user.findMany();
 
@@ -167,8 +165,6 @@ export async function tenantsAndMembershipsSeed(
     console.log('📊 Seeding Tenants and Memberships Summary:');
     console.log(`   🏬 Tenants: ${stats.tenants}`);
     console.log(`   👨‍💼 Memberships: ${stats.memberships}`);
-
-    console.log('\n✅ Database seeded tenants and memberships successfully!');
   } catch (error) {
     console.error('❌ Seed error:', error);
     throw error;

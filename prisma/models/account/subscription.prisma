@@ -4,17 +4,17 @@ model Subscription {
   customerId         String   // provider customer id
   subscriptionId     String   @unique
   priceId            String
-  status             String   // e.g., active, past_due, canceled
-  periodStart DateTime?
-  periodEnd   DateTime?
+  status             SubscriptionStatus // e.g., ACTIVE, PAST_DUE, CANCELED
+  periodStart        DateTime?
+  periodEnd          DateTime?
 
   accountId          String
-  account Account @relation(fields: [accountId], references: [id])
+  account            Account  @relation(fields: [accountId], references: [id])
 
-  planId String
-  plan Plan @relation(fields: [planId], references: [id])
+  planId             String
+  plan               Plan     @relation(fields: [planId], references: [id])
 
-  billingEvents BillingEvent[]
+  billingEvents      BillingEvent[]
 
   @@index([accountId, planId])
 }
