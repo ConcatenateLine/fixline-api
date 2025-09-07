@@ -131,13 +131,14 @@ describe('User Creation (e2e)', () => {
       const userInput = createTestUser();
 
       // First create a user
-      await request(app.getHttpServer())
+      const primaryUser = await request(app.getHttpServer())
         .post(gql)
         .set(authHeader)
         .send({
           query: createUserMutation,
           variables: { input: userInput },
-        });
+        })
+        .expect(200);
 
       // Try to create another user with the same email
       const { body } = await request(app.getHttpServer())
@@ -148,6 +149,7 @@ describe('User Creation (e2e)', () => {
           variables: { input: userInput },
         })
         .expect(200);
+
 
       expect(body.errors).toBeDefined();
       expect(body.errors[0].message).toContain('already exists');

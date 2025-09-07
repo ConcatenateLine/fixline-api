@@ -5,6 +5,7 @@ import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 export class CreateUserInput {
   @Field()
   @IsEmail()
+  @IsNotEmpty()
   email: string;
 
   @Field()

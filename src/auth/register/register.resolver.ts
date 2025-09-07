@@ -1,6 +1,5 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
-import { UnauthorizedException, UseGuards } from '@nestjs/common';
-import { GqlLocalAuthGuard } from '../guards/gqlLocalAuth.guard';
+import { UnauthorizedException } from '@nestjs/common';
 import { Public } from '../decorators/public.decorator';
 import { RegisterResponse } from './register.response';
 import { RegisterInput } from './register.input';
