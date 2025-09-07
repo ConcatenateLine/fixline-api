@@ -3,6 +3,10 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AppModule } from '../../../app.module';
 import { PrismaService } from '../../../prisma/prisma.service';
 import request from 'supertest';
+import {
+  CleanUpExistingTestData,
+  CleanUpTestData,
+} from 'test/common/cleanUp.testData';
 
 describe('User Registration (e2e)', () => {
   let app: INestApplication;
@@ -14,7 +18,7 @@ describe('User Registration (e2e)', () => {
     return {
       email: `test_${uniqueId}@e2etest.com`,
       name: 'Test User',
-      password: 'SecurePass123!',
+      password: 'password',
     };
   };
 
@@ -33,34 +37,12 @@ describe('User Registration (e2e)', () => {
 
     await app.init();
 
-    // Clean up any existing test data
-    try {
-      await prisma.user.deleteMany({
-        where: {
-          OR: [
-            { email: { contains: '@example.com' } },
-            { email: { contains: '@e2etest.com' } },
-          ],
-        },
-      });
-    } catch (error) {
-      console.error('Error during initial cleanup:', error);
-    }
+    await CleanUpExistingTestData(prisma);
   });
 
   afterEach(async () => {
     try {
-      // Use deleteMany only to avoid P2025 when not found
-      await prisma.user.deleteMany({
-        where: {
-          OR: [
-            { email: { contains: '@example.com' } },
-            { email: { contains: '@e2etest.com' } },
-            { email: { contains: '+tag@example.com' } },
-            { email: { startsWith: 'longpass' } },
-          ],
-        },
-      });
+      await CleanUpTestData(prisma);
     } catch (error) {
       console.error('Error during test cleanup:', error);
     }
