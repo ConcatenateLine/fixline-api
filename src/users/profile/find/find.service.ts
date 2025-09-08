@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { FindInput } from './find.input';
-import { FindResponse } from './find.response';
+import { FindInput } from 'src/users/profile/find/find.input';
+import { FindResponse } from 'src/users/profile/find/find.response';
 
 @Injectable()
 export class FindService {

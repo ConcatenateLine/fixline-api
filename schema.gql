@@ -66,9 +66,41 @@ type SignInResponse {
   user: UserAuthModel!
 }
 
+type TenantMembershipModel {
+  id: String!
+  joinedAt: DateTime!
+  role: String!
+  tenant: TenantModel!
+  tenantId: String!
+  user: UserModel!
+  userId: Float!
+}
+
+type TenantModel {
+  contactEmail: String
+  createdAt: DateTime!
+  id: String!
+  isActive: Boolean!
+  memberships: [TenantMembershipModel!]
+  name: String!
+  slug: String!
+  updatedAt: DateTime!
+}
+
 type UserAuthModel {
   email: String!
   id: Float!
   memberships: [String!]
   name: String
+}
+
+type UserModel {
+  createdAt: DateTime!
+  email: String!
+  id: Float!
+  isActive: Boolean!
+  memberships: [TenantMembershipModel!]
+  name: String
+  password: String!
+  updatedAt: DateTime!
 }

@@ -1,4 +1,4 @@
-import Role from "../role.enum";
+import Role from "src/common/enums/role.enum";
 import {Role as PrismaRole} from "@prisma/client"
 
 describe('Role enum sync', () => {

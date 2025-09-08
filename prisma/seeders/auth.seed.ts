@@ -136,7 +136,6 @@ async function createSubscriptions(prisma: PrismaClient, accounts: any[]) {
           currency: basicPrice.currency,
           created: Math.floor(startDate.getTime() / 1000),
         },
-        accountId: account.id,
         subscriptionId: subscription.id,
       },
     });

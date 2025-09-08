@@ -1,12 +1,12 @@
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
-import { SignInResponse } from './signIn.response';
+import { SignInResponse } from 'src/auth/signIn/signIn.response';
 import { UnauthorizedException, UseGuards } from '@nestjs/common';
-import { SignInInput } from './signIn.input';
-import { SignInService } from './signIn.service';
-import { GqlLocalAuthGuard } from '../guards/gqlLocalAuth.guard';
-import { UserAuthModel } from '../models/userAuth.model';
-import { CurrentUser } from '../decorators/currentUser.decorator';
-import { Public } from '../decorators/public.decorator';
+import { SignInInput } from 'src/auth/signIn/signIn.input';
+import { SignInService } from 'src/auth/signIn/signIn.service';
+import { GqlLocalAuthGuard } from 'src/auth/guards/gqlLocalAuth.guard';
+import { UserAuthModel } from 'src/auth/models/userAuth.model';
+import { CurrentUser } from 'src/auth/decorators/currentUser.decorator';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 @Resolver()
 export class SignInResolver {

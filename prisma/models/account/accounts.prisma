@@ -12,7 +12,5 @@ model Account {
   userEmail String? @unique
   user User? @relation(fields: [userEmail], references: [email])
 
-  billingEvents BillingEvent[]
-
   @@index([userEmail])
 }

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ValidateService } from '../validate.service';
+import { ValidateService } from 'src/auth/validate/validate.service';
 import { FindService } from 'src/users/find/find.service';
 import * as bcrypt from 'bcrypt';
 

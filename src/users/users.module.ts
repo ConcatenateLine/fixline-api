@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UsersController } from './users.controller';
+import { UsersService } from 'src/users/users.service';
+import { UsersController } from 'src/users/users.controller';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateModule } from './create/create.module';
-import { FindModule } from './find/find.module';
-import { ProfileModule } from './profile/profile.module';
+import { CreateModule } from 'src/users/create/create.module';
+import { FindModule } from 'src/users/find/find.module';
+import { ProfileModule } from 'src/users/profile/profile.module';
 
 @Module({
   imports: [CreateModule, FindModule, ProfileModule],

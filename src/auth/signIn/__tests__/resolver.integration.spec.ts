@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UnauthorizedException } from '@nestjs/common';
-import { SignInResolver } from '../signIn.resolver';
-import { SignInService } from '../signIn.service';
-import { SignInInput } from '../signIn.input';
-import { SignInResponse } from '../signIn.response';
-import { UserAuthModel } from '../../models/userAuth.model';
+import { SignInResolver } from 'src/auth/signIn/signIn.resolver';
+import { SignInService } from 'src/auth/signIn/signIn.service';
+import { SignInInput } from 'src/auth/signIn/signIn.input';
+import { SignInResponse } from 'src/auth/signIn/signIn.response';
+import { UserAuthModel } from 'src/auth/models/userAuth.model';
 
 describe('SignInResolver', () => {
   let resolver: SignInResolver;

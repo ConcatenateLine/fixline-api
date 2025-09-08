@@ -1,7 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import Role from 'src/common/enums/role.enum';
 import { UserModel } from 'src/users/models/user.model';
-import { TenantModel } from './tenant.model';
+import { TenantModel } from 'src/tenants/models/tenant.model';
 
 @ObjectType()
 export class TenantMembershipModel {

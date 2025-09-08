@@ -6,9 +6,6 @@ model BillingEvent {
   receivedAt DateTime @default(now())
   raw       Json
 
-  accountId String
-  account Account @relation(fields: [accountId], references: [id])
-
   subscriptionId String
   subscription Subscription @relation(fields: [subscriptionId], references: [id])
 

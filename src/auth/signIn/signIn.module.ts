@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { SignInService } from './signIn.service';
-import { SignInResolver } from './signIn.resolver';
-import { ValidateModule } from '../validate/validate.module';
-import { LocalStrategy } from '../strategies/local.strategy';
-import { GqlLocalAuthGuard } from '../guards/gqlLocalAuth.guard';
+import { SignInService } from 'src/auth/signIn/signIn.service';
+import { SignInResolver } from 'src/auth/signIn/signIn.resolver';
+import { ValidateModule } from 'src/auth/validate/validate.module';
+import { LocalStrategy } from 'src/auth/strategies/local.strategy';
+import { GqlLocalAuthGuard } from 'src/auth/guards/gqlLocalAuth.guard';
 
 @Module({
   imports: [ValidateModule],

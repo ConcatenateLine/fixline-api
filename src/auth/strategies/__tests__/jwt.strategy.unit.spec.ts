@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { JwtStrategy } from '../jwt.strategy';
-import { JwtPayload } from '../../interfaces/jwtPayload.interface';
+import { JwtStrategy } from 'src/auth/strategies/jwt.strategy';
+import { JwtPayload } from 'src/auth/interfaces/jwtPayload.interface';
 
 describe('JwtStrategy', () => {
   let strategy: JwtStrategy;

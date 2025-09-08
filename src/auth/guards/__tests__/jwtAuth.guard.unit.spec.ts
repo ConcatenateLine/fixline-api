@@ -1,8 +1,8 @@
 import { ExecutionContext } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { JwtAuthGuard } from '../jwtAuth.guard';
-import { IS_PUBLIC_KEY } from '../../decorators/public.decorator';
+import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
+import { IS_PUBLIC_KEY } from 'src/auth/decorators/public.decorator';
 
 // Mock GqlExecutionContext
 jest.mock('@nestjs/graphql', () => ({

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CreateResolver } from '../create.resolver';
-import { CreateService } from '../create.service';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { CreateResolver } from 'src/users/create/create.resolver';
+import { CreateService } from 'src/users/create/create.service';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { BadRequestException } from '@nestjs/common';
 import { prismaMock } from 'test/singleton';
 

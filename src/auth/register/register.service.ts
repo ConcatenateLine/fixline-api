@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ConflictException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { RegisterInput } from './register.input';
+import { RegisterInput } from 'src/auth/register/register.input';
 
 @Injectable()
 export class RegisterService {

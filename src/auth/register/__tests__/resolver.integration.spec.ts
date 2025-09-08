@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UnauthorizedException } from '@nestjs/common';
-import { RegisterResolver } from '../register.resolver';
-import { RegisterService } from '../register.service';
-import { RegisterInput } from '../register.input';
-import { RegisterResponse } from '../register.response';
+import { RegisterResolver } from 'src/auth/register/register.resolver';
+import { RegisterService } from 'src/auth/register/register.service';
+import { RegisterInput } from 'src/auth/register/register.input';
+import { RegisterResponse } from 'src/auth/register/register.response';
 
 describe('RegisterResolver', () => {
   let resolver: RegisterResolver;

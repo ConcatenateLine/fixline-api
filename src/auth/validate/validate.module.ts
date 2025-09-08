@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FindModule } from 'src/users/find/find.module';
-import { ValidateService } from './validate.service';
+import { ValidateService } from 'src/auth/validate/validate.service';
 
 @Module({
   imports: [FindModule],

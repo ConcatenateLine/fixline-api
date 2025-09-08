@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException } from '@nestjs/common';
-import { RegisterService } from '../register.service';
+import { RegisterService } from 'src/auth/register/register.service';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { RegisterInput } from '../register.input';
+import { RegisterInput } from 'src/auth/register/register.input';
 import { prismaMock } from 'test/singleton';
 import * as bcrypt from 'bcrypt';
 

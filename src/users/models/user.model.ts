@@ -1,4 +1,5 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, ObjectType } from '@nestjs/graphql';
+import { TenantMembershipModel } from 'src/tenants/models/tenantMembership.model';
 
 @ObjectType()
 export class UserModel {
@@ -23,6 +24,6 @@ export class UserModel {
   @Field()
   updatedAt: Date;
 
-  @Field(() => [Int], { nullable: true })
-  memberships?: any[]
+  @Field(() => [TenantMembershipModel], { nullable: true })
+  memberships?: TenantMembershipModel[];
 }

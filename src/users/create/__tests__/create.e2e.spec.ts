@@ -5,12 +5,12 @@ import {
   ExecutionContext,
   ValidationPipe,
 } from '@nestjs/common';
-import { AppModule } from '../../../app.module';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { AppModule } from 'src/app.module';
+import { PrismaService } from 'src/prisma/prisma.service';
 import request from 'supertest';
 import { APP_GUARD } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { JwtAuthGuard } from '../../../auth/guards/jwtAuth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwtAuth.guard';
 import { JwtService } from '@nestjs/jwt';
 
 describe('User Creation (e2e)', () => {

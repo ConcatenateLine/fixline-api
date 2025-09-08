@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtService } from '@nestjs/jwt';
-import { SignInService } from '../signIn.service';
-import { UserAuthModel } from '../../models/userAuth.model';
+import { SignInService } from 'src/auth/signIn/signIn.service';
+import { UserAuthModel } from 'src/auth/models/userAuth.model';
 
 describe('SignInService', () => {
   let service: SignInService;

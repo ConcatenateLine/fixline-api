@@ -1,9 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { AppModule } from '../../../app.module';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { AppModule } from 'src/app.module';
+import { PrismaService } from 'src/prisma/prisma.service';
 import request from 'supertest';
-import { SignInInput } from '../signIn.input';
+import { SignInInput } from 'src/auth/signIn/signIn.input';
 import {
   CleanUpExistingTestData,
   CleanUpTestData,

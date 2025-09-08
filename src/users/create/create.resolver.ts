@@ -1,9 +1,9 @@
 import { Mutation, Resolver } from '@nestjs/graphql';
-import { CreateService } from './create.service';
+import { CreateService } from 'src/users/create/create.service';
 import { Args } from '@nestjs/graphql';
-import { CreateUserInput } from './create.input';
-import { UserModel } from '../models/user.model';
-import { CreateResponse } from './create.response';
+import { CreateUserInput } from 'src/users/create/create.input';
+import { UserModel } from 'src/users/models/user.model';
+import { CreateResponse } from 'src/users/create/create.response';
 import { ConflictException } from '@nestjs/common';
 
 @Resolver(() => UserModel)

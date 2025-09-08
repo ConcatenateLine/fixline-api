@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { GrapqlModule } from './grapql/grapql.module';
-import { UsersModule } from './users/users.module';
-import { TenantsModule } from './tenants/tenants.module';
-import { AuthModule } from './auth/auth.module';
+import { AppController } from 'src/app.controller';
+import { AppService } from 'src/app.service';
+import { GrapqlModule } from 'src/grapql/grapql.module';
+import { UsersModule } from 'src/users/users.module';
+import { TenantsModule } from 'src/tenants/tenants.module';
+import { AuthModule } from 'src/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
+import { PlansModule } from 'src/plans/plans.module';
+import { SubscriptionsModule } from 'src/subscriptions/subscriptions.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { JwtModule } from '@nestjs/jwt';
     UsersModule,
     AuthModule,
     TenantsModule,
+    PlansModule,
+    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
