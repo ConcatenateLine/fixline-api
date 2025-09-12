@@ -6,11 +6,15 @@ import { UsersModule } from 'src/users/users.module';
 import { TenantsModule } from 'src/tenants/tenants.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
-import { PlansModule } from 'src/plans/plans.module';
-import { SubscriptionsModule } from 'src/subscriptions/subscriptions.module';
+import { ConfigModule } from '@nestjs/config';
+import { BillingModule } from './billing/billing.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env', '.env.development', '.env.production'],
+    }),
     GrapqlModule,
     JwtModule.register({
       global: true,
@@ -19,9 +23,8 @@ import { SubscriptionsModule } from 'src/subscriptions/subscriptions.module';
     }),
     UsersModule,
     AuthModule,
+    BillingModule,
     TenantsModule,
-    PlansModule,
-    SubscriptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

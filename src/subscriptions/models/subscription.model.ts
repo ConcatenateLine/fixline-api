@@ -30,11 +30,11 @@ export class SubscriptionModel {
   periodEnd: Date;
 
   @Field()
-  account: AccountModel;
+  account?: AccountModel;
 
   @Field()
-  plan: PlanModel;
+  plan?: PlanModel;
 
   @Field()
-  billingEvents: BillingEventModel[];
+  billingEvents?: BillingEventModel[];
 }

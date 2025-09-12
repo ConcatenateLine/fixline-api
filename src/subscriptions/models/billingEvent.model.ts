@@ -22,5 +22,5 @@ export class BillingEventModel {
   raw: any;
 
   @Field()
-  subscription: SubscriptionModel;
+  subscription?: SubscriptionModel;
 }

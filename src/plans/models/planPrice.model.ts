@@ -28,5 +28,5 @@ export class PlanPriceModel {
   active: boolean;
 
   @Field()
-  plan: PlanModel;
+  plan?: PlanModel;
 }

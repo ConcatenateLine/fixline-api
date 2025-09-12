@@ -29,8 +29,8 @@ export class PlanModel {
   updatedAt: Date;
 
   @Field()
-  prices: PlanPriceModel[];
+  prices?: PlanPriceModel[];
 
   @Field()
-  subscriptions: SubscriptionModel[];
+  subscriptions?: SubscriptionModel[];
 }

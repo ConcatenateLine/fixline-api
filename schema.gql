@@ -36,6 +36,7 @@ type FindResponse {
 }
 
 type Mutation {
+  createCheckoutSession(planId: String!, processor: String = "stripe"): String!
   createUser(input: CreateUserInput!): CreateResponse!
   register(input: RegisterInput!): RegisterResponse!
   signIn(input: SignInInput!): SignInResponse!

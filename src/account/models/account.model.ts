@@ -21,11 +21,14 @@ export class AccountModel {
   tenantsUsed: number;
 
   @Field()
-  subscriptions: SubscriptionModel[];
+  subscriptions?: SubscriptionModel[];
 
   @Field()
-  tenants: TenantModel[];
+  tenants?: TenantModel[];
 
   @Field()
-  user: UserModel;
+  userEmail?: string | null;
+
+  @Field()
+  user?: UserModel;
 }
